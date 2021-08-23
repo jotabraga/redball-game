@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Red ball game</title>
 
     <style>
       body {
@@ -19,7 +19,7 @@
     <canvas
       id="canvas"
       onmousemove="onMouseMove(event)"
-      onclick="startGame()"
+      onclick="restartGame()"
     ></canvas>
 
     <script>
@@ -33,6 +33,7 @@
 
       let intervalId;
       let score = 0;
+      let gameOver = false;
 
       let player = {
         x: screenWidth / 2,
@@ -120,11 +121,22 @@
 
       function endGame() {
         alert(`Fim do jogo! Seu score foi de ${score}`);
+        gameOver = true;
         clearInterval(intervalId);
         clearInterval(scoreId);
       }
 
+      function restartGame(){
+        if(gameOver === true){
+          enemies = [];
+          score = 0;
+          startGame();
+        }    
+      }
+
       function startGame() {
+
+        gameOver = false;
         player.x = screenWidth / 2;
         player.y = screenHeight / 2;
 
