@@ -43,6 +43,7 @@
       };
 
       let enemies = [];
+      let friends = [];
 
       function insertEnemy(){
         const newEnemy = {
@@ -53,8 +54,19 @@
           speedX: Math.floor(Math.random()*10 + 5),
           speedY: Math.floor(Math.random()*10 + 5),
         }
-
         enemies.push(newEnemy);
+      }
+
+      function insertFriend(){
+        const newFriend = {
+          x: 0,
+          y: 0,
+          radius: 10,
+          color: "green",
+          speedX: Math.floor(Math.random()*10 + 5),
+          speedY: Math.floor(Math.random()*10 + 5),
+        }
+        enemies.push(newFriend);
       }
 
       function onMouseMove(event) {
@@ -84,10 +96,23 @@
         });
       }
 
+      function drawFriend() {
+        friends.forEach(friend => {
+          drawCircle(friend.x, friend.y, friend.radius, friend.color);
+        });
+      }
+
       function moveEnemy() {
         enemies.forEach(enemy => {
           enemy.x += enemy.speedX;
           enemy.y += enemy.speedY;
+        });
+      }
+
+      function moveFriend() {
+        friends.forEach(friend => {
+          friend.x += friend.speedX;
+          friend.y += friend.speedY;
         });
       }
 
@@ -118,6 +143,17 @@
           }
         });
       }
+
+      function isOutOfScreen() {
+        return (
+          this.x < 0 || this.x > screenWidth || this.y < 0 || this.y > screenHeight
+        );
+      }
+      
+      function deleteFriend(friend) {
+        friends = friends.filter((f) => f !== friend);
+      }
+
 
       function endGame() {
         alert(`Fim do jogo! Seu score foi de ${score}`);
@@ -162,6 +198,11 @@
         const insertNewEnemyProbability = Math.random();
         if (insertNewEnemyProbability > 0.998){
           insertEnemy();
+        }
+
+        const insertFriendProbability = Math.random();
+        if (insertFriendProbability > 0.9){
+          insertFriend();
         }
 
 
