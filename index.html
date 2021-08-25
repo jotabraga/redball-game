@@ -22,6 +22,8 @@
       onclick="restartGame()"
     ></canvas>
 
+    <script src="./Enemy.js" />
+
     <script>
       const screenWidth = window.innerWidth;
       const screenHeight = window.innerHeight;
@@ -57,6 +59,8 @@
         enemies.push(newEnemy);
       }
 
+
+
       function insertFriend(){
         const newFriend = {
           x: 0,
@@ -66,7 +70,7 @@
           speedX: Math.floor(Math.random()*10 + 5),
           speedY: Math.floor(Math.random()*10 + 5),
         }
-        enemies.push(newFriend);
+        friends.push(newFriend);
       }
 
       function onMouseMove(event) {
@@ -90,11 +94,7 @@
         drawCircle(player.x, player.y, player.radius, player.color);
       }
 
-      function drawEnemy() {
-        enemies.forEach(enemy => {
-          drawCircle(enemy.x, enemy.y, enemy.radius, enemy.color);
-        });
-      }
+
 
       function drawFriend() {
         friends.forEach(friend => {
@@ -102,12 +102,7 @@
         });
       }
 
-      function moveEnemy() {
-        enemies.forEach(enemy => {
-          enemy.x += enemy.speedX;
-          enemy.y += enemy.speedY;
-        });
-      }
+
 
       function moveFriend() {
         friends.forEach(friend => {
@@ -131,18 +126,7 @@
         return collision;
       }
 
-      function bounceEnemyOnEdge() {
 
-        enemies.forEach(enemy => {
-          if (enemy.x < 0 || enemy.x > screenWidth) {
-          enemy.speedX *= -1.001;
-          }
-
-          if (enemy.y < 0 || enemy.y > screenHeight) {
-            enemy.speedY *= -1.001;
-          }
-        });
-      }
 
       function isOutOfScreen() {
         return (
@@ -183,17 +167,18 @@
       }
 
       function gameLoop() {
-        clearScreen();
-        moveEnemy();
+        updateState();
+        renderGame();
+      }
+
+      function updateState(){
+        Enemy.move;
 
         if (checkEnemyCollision()) {
           endGame();
         }
 
-        bounceEnemyOnEdge();
-
-        drawPlayer();
-        drawEnemy();
+        Enemy.bounceOnEdge;
 
         const insertNewEnemyProbability = Math.random();
         if (insertNewEnemyProbability > 0.998){
@@ -204,8 +189,13 @@
         if (insertFriendProbability > 0.998){
           insertFriend();
         }
+      }
 
-
+      function renderGame(){
+        clearScreen();
+        drawPlayer();
+        drawEnemy();
+        drawFriend();
       }
 
       startGame();
