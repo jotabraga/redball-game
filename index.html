@@ -37,26 +37,13 @@
       let score = 0;
       let gameOver = false;
 
-      let player = {
-        x: screenWidth / 2,
-        y: screenHeight / 2,
-        radius: 100,
-        color: "red",
-      };
+    
 
       let enemies = [];
       let friends = [];
 
       function insertEnemy(){
-        const newEnemy = {
-          x: 0,
-          y: 0,
-          radius: 20,
-          color: "blue",
-          speedX: Math.floor(Math.random()*10 + 5),
-          speedY: Math.floor(Math.random()*10 + 5),
-        }
-        enemies.push(newEnemy);
+        const newEnemy = new Enemy();
       }
 
 

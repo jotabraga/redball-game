@@ -1,0 +1,26 @@
+{
+  "name": "redball",
+  "version": "1.0.0",
+  "description": "",
+  "main": "AutonomousBall.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jotabraga/redball-game.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jotabraga/redball-game/issues"
+  },
+  "homepage": "https://github.com/jotabraga/redball-game#readme",
+  "devDependencies": {
+    "ts-loader": "^9.2.5",
+    "typescript": "^4.4.2",
+    "webpack": "^5.51.1",
+    "webpack-cli": "^4.8.0"
+  }
+}
