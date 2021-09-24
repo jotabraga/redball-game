@@ -43,6 +43,29 @@
 
     <div class="score">Score: 0</div>
 
-    <script src="bundle.js"></script>
+    <script src="../src/helpers.js"></script>
+    <script src="../src/Ball.js"></script>
+    <script src="../src/AutonomousBall.js"></script>
+    <script src="../src/Enemy.js"></script>
+    <script src="../src/Friend.js"></script>
+    <script src="../src/Player.js"></script>
+    <script src="../src/Game.js"></script>
+
+    <script>
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
+      const canvas = document.querySelector("#canvas");
+
+      const game = new Game(screenWidth, screenHeight, canvas);
+      game.start();
+
+      function onMouseMove(event) {
+        game.onMouseMove(event);
+      }
+
+      function startGame() {
+        game.start();
+      }
+    </script>
   </body>
 </html>
