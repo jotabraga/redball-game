@@ -1,10 +1,10 @@
 class Enemy {
     x;
     y;
-    radius = 15,
-    color = "blue",
-    speedX = Math.floor(Math.random()*10 + 5),
-    speedY = Math.floor(Math.random()*10 + 5),
+    radius = 15;
+    color = "blue";
+    speedX = Math.floor(Math.random()*10 + 5);
+    speedY = Math.floor(Math.random()*10 + 5);
 
     constructor(initialX, initialY) {
       this.x = initialX;
