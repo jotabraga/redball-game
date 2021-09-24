@@ -1,8 +1,8 @@
 # Red-ball game ⚾
 A simple game made using object-oriented programming. 
 ## Preview 👀
-![red_ball](./src/assets/trackit.gif)
-#### [Try it now!](trackit-frontend-gp2nrny24-jotabraga.vercel.app)
+![red_ball](./src/assets/redball.gif)
+
 ## About 🔎
 This is an object-oriented programming aplication wich you can control a ball to avoid collisions.
 ### Implemented features ✅
