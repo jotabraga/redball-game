@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Red ball game</title>
+    <title>Redball game</title>
 
     <style>
       body {
@@ -12,6 +12,25 @@
         margin: 0;
       }
 
+      body.fail {
+        transition: all 2s ease-in-out;
+        background: blue;
+      }
+
+      .score {
+        position: fixed;
+        top: 30px;
+        right: 30px;
+        font-size: 1.5em;
+        font-family: Verdana;
+        transition: all 0.7s ease-in;
+      }
+
+      .score.highlight {
+        font-size: 2em;
+        color: green;
+        transition: none;
+      }
     </style>
   </head>
 
@@ -19,173 +38,34 @@
     <canvas
       id="canvas"
       onmousemove="onMouseMove(event)"
-      onclick="restartGame()"
+      onclick="startGame()"
     ></canvas>
 
-    <script src="./Enemy.js" />
+    <div class="score">Score: 0</div>
+
+    <script src="../src/helpers.js"></script>
+    <script src="../src/Ball.js"></script>
+    <script src="../src/AutonomousBall.js"></script>
+    <script src="../src/Enemy.js"></script>
+    <script src="../src/Friend.js"></script>
+    <script src="../src/Player.js"></script>
+    <script src="../src/Game.js"></script>
 
     <script>
       const screenWidth = window.innerWidth;
       const screenHeight = window.innerHeight;
-
       const canvas = document.querySelector("#canvas");
-      canvas.width = screenWidth;
-      canvas.height = screenHeight;
-      const context = canvas.getContext("2d");
 
-      let intervalId;
-      let score = 0;
-      let gameOver = false;
-
-    
-
-      let enemies = [];
-      let friends = [];
-
-      function insertEnemy(){
-        const newEnemy = new Enemy();
-      }
-
-
-
-      function insertFriend(){
-        const newFriend = {
-          x: 0,
-          y: 0,
-          radius: 10,
-          color: "green",
-          speedX: Math.floor(Math.random()*10 + 5),
-          speedY: Math.floor(Math.random()*10 + 5),
-        }
-        friends.push(newFriend);
-      }
+      const game = new Game(screenWidth, screenHeight, canvas);
+      game.start();
 
       function onMouseMove(event) {
-        player.x = event.clientX;
-        player.y = event.clientY;
-      }
-
-
-      function drawCircle(x, y, radius, color) {
-        context.beginPath();
-        context.fillStyle = color;
-        context.arc(x, y, radius, 0, 2 * Math.PI);
-        context.fill();
-      }
-
-      function clearScreen() {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-      }
-
-      function drawPlayer() {
-        drawCircle(player.x, player.y, player.radius, player.color);
-      }
-
-
-
-      function drawFriend() {
-        friends.forEach(friend => {
-          drawCircle(friend.x, friend.y, friend.radius, friend.color);
-        });
-      }
-
-
-
-      function moveFriend() {
-        friends.forEach(friend => {
-          friend.x += friend.speedX;
-          friend.y += friend.speedY;
-        });
-      }
-
-      function checkEnemyCollision() {
-
-        let collision = false;
-
-        enemies.forEach(enemy => {
-          const distance = Math.sqrt((player.x - enemy.x) ** 2 + (player.y - enemy.y) ** 2);
-
-          if (distance < player.radius + enemy.radius){   
-            collision = true;
-          } 
-        });
-
-        return collision;
-      }
-
-
-
-      function isOutOfScreen() {
-        return (
-          this.x < 0 || this.x > screenWidth || this.y < 0 || this.y > screenHeight
-        );
-      }
-      
-      function deleteFriend(friend) {
-        friends = friends.filter((f) => f !== friend);
-      }
-
-
-      function endGame() {
-        alert(`Fim do jogo! Seu score foi de ${score}`);
-        gameOver = true;
-        clearInterval(intervalId);
-        clearInterval(scoreId);
-      }
-
-      function restartGame(){
-        if(gameOver === true){
-          enemies = [];
-          score = 0;
-          startGame();
-        }    
+        game.onMouseMove(event);
       }
 
       function startGame() {
-
-        gameOver = false;
-        player.x = screenWidth / 2;
-        player.y = screenHeight / 2;
-
-        insertEnemy();
-
-        intervalId = setInterval(gameLoop, 1000 / 60);
-        scoreId = setInterval(() => score++, 1000);
+        game.start();
       }
-
-      function gameLoop() {
-        updateState();
-        renderGame();
-      }
-
-      function updateState(){
-        Enemy.move;
-
-        if (checkEnemyCollision()) {
-          endGame();
-        }
-
-        Enemy.bounceOnEdge;
-
-        const insertNewEnemyProbability = Math.random();
-        if (insertNewEnemyProbability > 0.998){
-          insertEnemy();
-        }
-
-        const insertFriendProbability = Math.random();
-        if (insertFriendProbability > 0.998){
-          insertFriend();
-        }
-      }
-
-      function renderGame(){
-        clearScreen();
-        drawPlayer();
-        drawEnemy();
-        drawFriend();
-      }
-
-      startGame();
     </script>
   </body>
 </html>
